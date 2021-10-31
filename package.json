@@ -1,0 +1,50 @@
+{
+  "name": "cache-manager-node-cache",
+  "version": "1.0.0",
+  "description": "A memory cache store for cache-manager using node-cache.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --useStderr",
+    "build": "babel index.js -d build",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radleta/node-cache-manager-node-cache.git"
+  },
+  "keywords": [
+    "node-cache-manager",
+    "cache-manager",
+    "memory-cache",
+    "node-cache",
+    "store"
+  ],
+  "author": "Richard Adleta <radleta@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/radleta/node-cache-manager-node-cache/issues"
+  },
+  "homepage": "https://github.com/radleta/node-cache-manager-node-cache#readme",
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "dependencies": {
+    "node-cache": "^5.1.2"
+  },
+  "jest": {
+    "transform": {
+      ".js": "<rootDir>/node_modules/babel-jest"
+    },
+    "testRegex": ".spec.js$"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-jest": "19.0.0",
+    "babel-preset-env": "1.1.10",
+    "cache-manager": "2.4.0",
+    "jest-cli": "19.0.2",
+    "standard": "10.0.2"
+  }
+}
