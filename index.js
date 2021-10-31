@@ -37,8 +37,6 @@ const nodeCacheStore = function (args) {
 
   const cacheInstance = new NodeCache(instanceOpts)
 
-  self.isCacheableValue = args.isCacheableValue || ((value) => true);
-
   const setMultipleKeys = function setMultipleKeys (keysValues, maxAge) {
     const length = keysValues.length
     const values = []
@@ -60,7 +58,7 @@ const nodeCacheStore = function (args) {
     }
     options = options || {}
 
-    const maxAge = (options.ttl || options.ttl === 0) ? options.ttl * 1000 : instanceOpts.stdTTL
+    const maxAge = (options.ttl || options.ttl === 0) ? options.ttl : instanceOpts.stdTTL
 
     cacheInstance.set(key, value, maxAge)
     if (cb) {
@@ -83,7 +81,7 @@ const nodeCacheStore = function (args) {
       options = args.pop()
     }
 
-    const maxAge = (options.ttl || options.ttl === 0) ? options.ttl * 1000 : instanceOpts.stdTTL
+    const maxAge = (options.ttl || options.ttl === 0) ? options.ttl : instanceOpts.stdTTL
 
     const values = setMultipleKeys(args, maxAge)
 
@@ -182,8 +180,19 @@ const nodeCacheStore = function (args) {
       return keys
     }
   }
+  
+  self.ttl = function (key, cb) {
+	const expiresAt = cacheInstance.getTtl(key)
+	const ttlRemaining = (expiresAt - Date.now()) / 1000
+	if (cb) {
+	  process.nextTick(cb.bind(null, null, ttlRemaining))
+	} else if (self.usePromises) {
+	  return Promise.resolve(ttlRemaining)
+	} else {
+	  return ttlRemaining
+	}
+  }
 
-  self.ttl = (key) => cacheInstance.getTtl(key)
 
   return self
 }
