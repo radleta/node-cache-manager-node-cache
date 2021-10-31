@@ -37,6 +37,8 @@ const nodeCacheStore = function (args) {
 
   const cacheInstance = new NodeCache(instanceOpts)
 
+  self.isCacheableValue = args.isCacheableValue || ((value) => true);
+
   const setMultipleKeys = function setMultipleKeys (keysValues, maxAge) {
     const length = keysValues.length
     const values = []

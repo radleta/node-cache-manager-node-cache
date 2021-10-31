@@ -1,6 +1,6 @@
 {
   "name": "cache-manager-node-cache",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A memory cache store for cache-manager using node-cache.",
   "main": "index.js",
   "scripts": {
